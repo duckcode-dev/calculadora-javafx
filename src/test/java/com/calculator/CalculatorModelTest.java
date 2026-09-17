@@ -8,9 +8,9 @@ class CalculatorModelTest {
 
     @Test
     void calculatesBasicOperations() {
-        assertEquals("5.0", calculate("2", "+", "3"));
-        assertEquals("2.0", calculate("5", "-", "3"));
-        assertEquals("12.0", calculate("4", "*", "3"));
+        assertEquals("5", calculate("2", "+", "3"));
+        assertEquals("2", calculate("5", "-", "3"));
+        assertEquals("12", calculate("4", "*", "3"));
         assertEquals("2.5", calculate("5", "/", "2"));
     }
 
@@ -25,7 +25,7 @@ class CalculatorModelTest {
         enterNumber(calculator, "4");
         calculator.calculateResult();
 
-        assertEquals("20.0", calculator.getDisplay());
+        assertEquals("20", calculator.getDisplay());
     }
 
     @Test

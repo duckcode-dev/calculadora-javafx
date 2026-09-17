@@ -1,5 +1,7 @@
 package com.calculator;
 
+import java.math.BigDecimal;
+
 public class CalculatorModel {
     private String display = "";
     private String operator = "";
@@ -28,7 +30,7 @@ public class CalculatorModel {
                 return;
             }
             number1 = result;
-            display = String.valueOf(result);
+            display = formatResult(result);
         } else {
             number1 = displayedNumber;
         }
@@ -47,7 +49,7 @@ public class CalculatorModel {
             return;
         }
 
-        display = String.valueOf(result);
+        display = formatResult(result);
         operator = "";
         startNewNumber = true;
     }
@@ -81,6 +83,16 @@ public class CalculatorModel {
             default:
                 return null;
         }
+    }
+
+    private String formatResult(double result) {
+        if (!Double.isFinite(result)) {
+            return String.valueOf(result);
+        }
+        if (result == 0) {
+            return "0";
+        }
+        return BigDecimal.valueOf(result).stripTrailingZeros().toPlainString();
     }
 
     private void showDivisionByZeroError() {
