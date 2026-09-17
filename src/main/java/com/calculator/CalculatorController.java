@@ -30,7 +30,19 @@ public class CalculatorController {
     private void handleOperator(ActionEvent event) {
         String value = ((Button) event.getSource()).getText();
         if (!hasError && !display.getText().isEmpty()) {
-            number1 = Double.parseDouble(display.getText());
+            double displayedNumber = Double.parseDouble(display.getText());
+
+            if (!operator.isEmpty() && !startNewNumber) {
+                Double result = calculate(displayedNumber);
+                if (result == null) {
+                    return;
+                }
+                number1 = result;
+                display.setText(String.valueOf(result));
+            } else {
+                number1 = displayedNumber;
+            }
+
             operator = value;
             startNewNumber = true;
         }
@@ -40,25 +52,9 @@ public class CalculatorController {
     private void handleEquals(ActionEvent event) {
         if (!display.getText().isEmpty() && !operator.isEmpty()) {
             double number2 = Double.parseDouble(display.getText());
-            double result = 0;
-
-            switch (operator) {
-                case "+":
-                    result = number1 + number2;
-                    break;
-                case "-":
-                    result = number1 - number2;
-                    break;
-                case "*":
-                    result = number1 * number2;
-                    break;
-                case "/":
-                    if (number2 == 0) {
-                        showDivisionByZeroError();
-                        return;
-                    }
-                    result = number1 / number2;
-                    break;
+            Double result = calculate(number2);
+            if (result == null) {
+                return;
             }
 
             display.setText(String.valueOf(result));
@@ -75,6 +71,25 @@ public class CalculatorController {
         number1 = 0;
         startNewNumber = true;
         hasError = false;
+    }
+
+    private Double calculate(double number2) {
+        switch (operator) {
+            case "+":
+                return number1 + number2;
+            case "-":
+                return number1 - number2;
+            case "*":
+                return number1 * number2;
+            case "/":
+                if (number2 == 0) {
+                    showDivisionByZeroError();
+                    return null;
+                }
+                return number1 / number2;
+            default:
+                return null;
+        }
     }
 
     private void showDivisionByZeroError() {
