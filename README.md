@@ -28,14 +28,30 @@ mvn -version
 
 Desde la raíz del proyecto:
 
+En Windows:
+
 ```powershell
-mvn javafx:run
+.\mvnw.cmd javafx:run
+```
+
+En macOS o Linux:
+
+```sh
+./mvnw javafx:run
 ```
 
 ## Ejecutar las pruebas
 
+En Windows:
+
 ```powershell
-mvn test
+.\mvnw.cmd test
+```
+
+En macOS o Linux:
+
+```sh
+./mvnw test
 ```
 
 Las pruebas cubren las operaciones básicas, cálculos encadenados, el manejo de división por cero, la limpieza de estado y el uso del separador decimal.
