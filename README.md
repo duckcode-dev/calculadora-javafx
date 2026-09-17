@@ -1,1 +1,61 @@
-calculadora hecha con tecnología JavaFX
+# Calculadora JavaFX
+
+Aplicación de escritorio de una calculadora básica desarrollada con JavaFX y Maven.
+
+## Funciones
+
+- Suma, resta, multiplicación y división.
+- Operaciones encadenadas de izquierda a derecha.
+- Números decimales, con un único separador por operando.
+- Mensaje controlado ante una división por cero.
+- Botón para limpiar el cálculo.
+- Interfaz adaptable con estilos CSS.
+
+## Requisitos
+
+- JDK 17 o superior.
+- Maven 3.9 o superior.
+- Acceso a Internet la primera vez que Maven descargue las dependencias de JavaFX y JUnit.
+
+Puedes comprobar las versiones instaladas con:
+
+```powershell
+java -version
+mvn -version
+```
+
+## Ejecutar la aplicación
+
+Desde la raíz del proyecto:
+
+```powershell
+mvn javafx:run
+```
+
+## Ejecutar las pruebas
+
+```powershell
+mvn test
+```
+
+Las pruebas cubren las operaciones básicas, cálculos encadenados, el manejo de división por cero, la limpieza de estado y el uso del separador decimal.
+
+## Estructura
+
+```text
+src/
+├── main/
+│   ├── java/com/calculator/
+│   │   ├── CalculatorApp.java        # Punto de entrada de JavaFX
+│   │   ├── CalculatorController.java # Eventos de la interfaz
+│   │   └── CalculatorModel.java      # Estado y operaciones de la calculadora
+│   └── resources/
+│       ├── calculator.fxml           # Diseño de la interfaz
+│       └── calculator.css            # Estilos visuales
+└── test/java/com/calculator/
+    └── CalculatorModelTest.java      # Pruebas unitarias
+```
+
+## Uso
+
+Selecciona los dígitos y las operaciones con los botones. El botón `=` muestra el resultado y `C` reinicia el cálculo. Los resultados enteros se muestran sin decimales innecesarios; por ejemplo, `2 + 2` muestra `4` y `5 / 2` muestra `2.5`.
