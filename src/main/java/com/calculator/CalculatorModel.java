@@ -18,6 +18,16 @@ public class CalculatorModel {
         display += digit;
     }
 
+    public void appendDecimalSeparator() {
+        if (startNewNumber) {
+            display = "0.";
+            startNewNumber = false;
+            hasError = false;
+        } else if (!display.contains(".")) {
+            display += ".";
+        }
+    }
+
     public void selectOperator(String selectedOperator) {
         if (hasError || display.isEmpty()) {
             return;

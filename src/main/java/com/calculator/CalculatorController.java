@@ -19,6 +19,12 @@ public class CalculatorController {
     }
 
     @FXML
+    private void handleDecimal(ActionEvent event) {
+        calculator.appendDecimalSeparator();
+        updateDisplay();
+    }
+
+    @FXML
     private void handleOperator(ActionEvent event) {
         String value = ((Button) event.getSource()).getText();
         calculator.selectOperator(value);

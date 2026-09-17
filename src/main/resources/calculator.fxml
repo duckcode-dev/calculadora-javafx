@@ -16,8 +16,9 @@
     <Button text="2" onAction="#handleNumber" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
     <Button text="3" onAction="#handleNumber" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
     <Button text="-" onAction="#handleOperator" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
-    <Button text="0" onAction="#handleNumber" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-    <Button text="C" onAction="#handleClear" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-    <Button text="=" onAction="#handleEquals" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
+    <Button text="C" onAction="#handleClear" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+    <Button text="0" onAction="#handleNumber" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+    <Button text="." onAction="#handleDecimal" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
     <Button text="+" onAction="#handleOperator" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+    <Button text="=" onAction="#handleEquals" GridPane.rowIndex="5" GridPane.columnSpan="4" maxWidth="Infinity"/>
 </GridPane>

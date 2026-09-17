@@ -57,6 +57,17 @@ class CalculatorModelTest {
         assertEquals("2", calculator.getDisplay());
     }
 
+    @Test
+    void allowsOnlyOneDecimalSeparatorPerNumber() {
+        CalculatorModel calculator = new CalculatorModel();
+
+        calculator.appendDecimalSeparator();
+        calculator.appendDigit("5");
+        calculator.appendDecimalSeparator();
+
+        assertEquals("0.5", calculator.getDisplay());
+    }
+
     private String calculate(String firstNumber, String operator, String secondNumber) {
         CalculatorModel calculator = new CalculatorModel();
         enterNumber(calculator, firstNumber);
@@ -68,7 +79,11 @@ class CalculatorModelTest {
 
     private void enterNumber(CalculatorModel calculator, String number) {
         for (char digit : number.toCharArray()) {
-            calculator.appendDigit(String.valueOf(digit));
+            if (digit == '.') {
+                calculator.appendDecimalSeparator();
+            } else {
+                calculator.appendDigit(String.valueOf(digit));
+            }
         }
     }
 }
