@@ -13,12 +13,14 @@ public class CalculatorController {
     private String operator = "";
     private double number1 = 0;
     private boolean startNewNumber = true;
+    private boolean hasError = false;
 
     @FXML
     private void handleNumber(ActionEvent event) {
         if (startNewNumber) {
             display.setText("");
             startNewNumber = false;
+            hasError = false;
         }
         String value = ((Button) event.getSource()).getText();
         display.setText(display.getText() + value);
@@ -27,7 +29,7 @@ public class CalculatorController {
     @FXML
     private void handleOperator(ActionEvent event) {
         String value = ((Button) event.getSource()).getText();
-        if (!display.getText().isEmpty()) {
+        if (!hasError && !display.getText().isEmpty()) {
             number1 = Double.parseDouble(display.getText());
             operator = value;
             startNewNumber = true;
@@ -51,6 +53,10 @@ public class CalculatorController {
                     result = number1 * number2;
                     break;
                 case "/":
+                    if (number2 == 0) {
+                        showDivisionByZeroError();
+                        return;
+                    }
                     result = number1 / number2;
                     break;
             }
@@ -68,5 +74,14 @@ public class CalculatorController {
         operator = "";
         number1 = 0;
         startNewNumber = true;
+        hasError = false;
+    }
+
+    private void showDivisionByZeroError() {
+        display.setText("Error: división por cero");
+        operator = "";
+        number1 = 0;
+        startNewNumber = true;
+        hasError = true;
     }
 }
