@@ -3,7 +3,7 @@ package com.calculator;
 import java.math.BigDecimal;
 
 public class CalculatorModel {
-    private String display = "";
+    private String display = "0";
     private String operator = "";
     private double number1 = 0;
     private boolean startNewNumber = true;
@@ -94,7 +94,7 @@ public class CalculatorModel {
     }
 
     public void clear() {
-        display = "";
+        display = "0";
         operator = "";
         number1 = 0;
         startNewNumber = true;

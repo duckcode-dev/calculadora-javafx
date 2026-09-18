@@ -14,6 +14,11 @@ public class CalculatorController {
     private final CalculatorModel calculator = new CalculatorModel();
 
     @FXML
+    private void initialize() {
+        updateDisplay();
+    }
+
+    @FXML
     private void handleNumber(ActionEvent event) {
         String value = ((Button) event.getSource()).getText();
         calculator.appendDigit(value);

@@ -7,6 +7,18 @@ import org.junit.jupiter.api.Test;
 class CalculatorModelTest {
 
     @Test
+    void startsAndClearsWithZeroOnDisplay() {
+        CalculatorModel calculator = new CalculatorModel();
+
+        assertEquals("0", calculator.getDisplay());
+
+        enterNumber(calculator, "8");
+        calculator.clear();
+
+        assertEquals("0", calculator.getDisplay());
+    }
+
+    @Test
     void calculatesBasicOperations() {
         assertEquals("5", calculate("2", "+", "3"));
         assertEquals("2", calculate("5", "-", "3"));
