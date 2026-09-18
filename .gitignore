@@ -1,2 +1,3 @@
 target/
 .mvn/repository/
+.mvn/maven-user-home/
