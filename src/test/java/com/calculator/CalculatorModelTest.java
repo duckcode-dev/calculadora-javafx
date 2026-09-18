@@ -28,6 +28,27 @@ class CalculatorModelTest {
     }
 
     @Test
+    void keepsDecimalCalculationsExactAndReadable() {
+        assertEquals("0.02", calculate("0.1", "*", "0.2"));
+        assertEquals("0.3", calculate("0.9", "/", "3"));
+        assertEquals("1.23", calculate("1.20", "+", "0.03"));
+    }
+
+    @Test
+    void calculatesNegativeResults() {
+        assertEquals("-3", calculate("2", "-", "5"));
+
+        CalculatorModel calculator = new CalculatorModel();
+        enterNumber(calculator, "6");
+        calculator.toggleSign();
+        calculator.selectOperator("*");
+        enterNumber(calculator, "4");
+        calculator.calculateResult();
+
+        assertEquals("-24", calculator.getDisplay());
+    }
+
+    @Test
     void resolvesPendingOperationWhenSelectingAnotherOperator() {
         CalculatorModel calculator = new CalculatorModel();
 
@@ -39,6 +60,33 @@ class CalculatorModelTest {
         calculator.calculateResult();
 
         assertEquals("20", calculator.getDisplay());
+    }
+
+    @Test
+    void replacesAnOperatorWhenNoSecondNumberHasBeenEntered() {
+        CalculatorModel calculator = new CalculatorModel();
+
+        enterNumber(calculator, "2");
+        calculator.selectOperator("+");
+        calculator.selectOperator("*");
+        enterNumber(calculator, "4");
+        calculator.calculateResult();
+
+        assertEquals("8", calculator.getDisplay());
+    }
+
+    @Test
+    void keepsTheCompletedResultWhenEqualsIsPressedRepeatedly() {
+        CalculatorModel calculator = new CalculatorModel();
+
+        enterNumber(calculator, "2");
+        calculator.selectOperator("+");
+        enterNumber(calculator, "3");
+        calculator.calculateResult();
+        calculator.calculateResult();
+        calculator.calculateResult();
+
+        assertEquals("5", calculator.getDisplay());
     }
 
     @Test
@@ -114,6 +162,13 @@ class CalculatorModelTest {
         calculator.calculateResult();
 
         assertEquals("Error: resultado fuera de rango", calculator.getDisplay());
+    }
+
+    @Test
+    void calculatesLargeResultsWithinTheSupportedPrecision() {
+        String largeNumber = "9".repeat(999);
+
+        assertEquals("1" + "0".repeat(999), calculate(largeNumber, "+", "1"));
     }
 
     private String calculate(String firstNumber, String operator, String secondNumber) {
