@@ -24,10 +24,10 @@
     </rowConstraints>
     <TextField fx:id="display" editable="false" maxWidth="Infinity" styleClass="display"
                GridPane.columnSpan="4" GridPane.hgrow="ALWAYS" />
-    <Button text="C" onAction="#handleClear" maxWidth="Infinity" maxHeight="Infinity" styleClass="clear-button" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-    <Button text="⌫" onAction="#handleBackspace" maxWidth="Infinity" maxHeight="Infinity" styleClass="backspace-button" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-    <Button text="+/-" onAction="#handleToggleSign" maxWidth="Infinity" maxHeight="Infinity" styleClass="operator-button" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-    <Button text="/" onAction="#handleOperator" maxWidth="Infinity" maxHeight="Infinity" styleClass="operator-button" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+    <Button text="+/-" onAction="#handleToggleSign" maxWidth="Infinity" maxHeight="Infinity" styleClass="operator-button" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <Button text="/" onAction="#handleOperator" maxWidth="Infinity" maxHeight="Infinity" styleClass="operator-button" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    <Button text="C" onAction="#handleClear" maxWidth="Infinity" maxHeight="Infinity" styleClass="clear-button" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+    <Button text="⌫" onAction="#handleBackspace" maxWidth="Infinity" maxHeight="Infinity" styleClass="backspace-button" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
     <Button text="7" onAction="#handleNumber" maxWidth="Infinity" maxHeight="Infinity" styleClass="number-button" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
     <Button text="8" onAction="#handleNumber" maxWidth="Infinity" maxHeight="Infinity" styleClass="number-button" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
     <Button text="9" onAction="#handleNumber" maxWidth="Infinity" maxHeight="Infinity" styleClass="number-button" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
