@@ -1,16 +1,22 @@
 package com.calculator;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 
 public class CalculatorModel {
-    private static final int MAX_RESULT_PRECISION = 1_000;
-
+    private final CalculatorService calculatorService;
     private String display = "0";
     private String operator = "";
     private BigDecimal number1 = BigDecimal.ZERO;
     private boolean startNewNumber = true;
     private boolean hasError = false;
+
+    public CalculatorModel() {
+        this(new CalculatorService());
+    }
+
+    CalculatorModel(CalculatorService calculatorService) {
+        this.calculatorService = calculatorService;
+    }
 
     public void appendDigit(String digit) {
         if (startNewNumber) {
@@ -65,14 +71,14 @@ public class CalculatorModel {
             return;
         }
 
-        BigDecimal displayedNumber = new BigDecimal(display);
+        BigDecimal displayedNumber = calculatorService.parseNumber(display);
         if (!operator.isEmpty() && !startNewNumber) {
-            BigDecimal result = calculate(displayedNumber);
+            BigDecimal result = calculateAndHandleError(displayedNumber);
             if (result == null) {
                 return;
             }
             number1 = result;
-            display = formatResult(result);
+            display = calculatorService.formatResult(result);
         } else {
             number1 = displayedNumber;
         }
@@ -86,12 +92,12 @@ public class CalculatorModel {
             return;
         }
 
-        BigDecimal result = calculate(new BigDecimal(display));
+        BigDecimal result = calculateAndHandleError(calculatorService.parseNumber(display));
         if (result == null) {
             return;
         }
 
-        display = formatResult(result);
+        display = calculatorService.formatResult(result);
         operator = "";
         startNewNumber = true;
     }
@@ -105,56 +111,17 @@ public class CalculatorModel {
     }
 
     public String getDisplay() {
-        return display;
+        return hasError ? display : calculatorService.formatDisplayNumber(display);
     }
 
-    private BigDecimal calculate(BigDecimal number2) {
-        BigDecimal result;
-
-        switch (operator) {
-            case "+":
-                result = number1.add(number2);
-                break;
-            case "-":
-                result = number1.subtract(number2);
-                break;
-            case "*":
-                result = number1.multiply(number2);
-                break;
-            case "/":
-                if (number2.compareTo(BigDecimal.ZERO) == 0) {
-                    showDivisionByZeroError();
-                    return null;
-                }
-                result = number1.divide(number2, MathContext.DECIMAL128);
-                break;
-            default:
-                return null;
-        }
-
-        if (result.precision() > MAX_RESULT_PRECISION) {
-            showOverflowError();
+    private BigDecimal calculateAndHandleError(BigDecimal number2) {
+        try {
+            return calculatorService.calculate(number1, operator, number2);
+        } catch (CalculatorService.CalculationException exception) {
+            display = exception.getMessage();
+            resetAfterError();
             return null;
         }
-
-        return result;
-    }
-
-    private String formatResult(BigDecimal result) {
-        if (result.compareTo(BigDecimal.ZERO) == 0) {
-            return "0";
-        }
-        return result.stripTrailingZeros().toPlainString();
-    }
-
-    private void showDivisionByZeroError() {
-        display = "Error: división por cero";
-        resetAfterError();
-    }
-
-    private void showOverflowError() {
-        display = "Error: resultado fuera de rango";
-        resetAfterError();
     }
 
     private void resetAfterError() {

@@ -130,6 +130,15 @@ class CalculatorModelTest {
     }
 
     @Test
+    void showsThousandsSeparatorsWithoutChangingTheEnteredValue() {
+        CalculatorModel calculator = new CalculatorModel();
+
+        enterNumber(calculator, "100000");
+
+        assertEquals("100,000", calculator.getDisplay());
+    }
+
+    @Test
     void deletesLastEnteredCharacter() {
         CalculatorModel calculator = new CalculatorModel();
 
@@ -168,7 +177,10 @@ class CalculatorModelTest {
     void calculatesLargeResultsWithinTheSupportedPrecision() {
         String largeNumber = "9".repeat(999);
 
-        assertEquals("1" + "0".repeat(999), calculate(largeNumber, "+", "1"));
+        assertEquals(
+                new CalculatorService().formatDisplayNumber("1" + "0".repeat(999)),
+                calculate(largeNumber, "+", "1")
+        );
     }
 
     private String calculate(String firstNumber, String operator, String secondNumber) {

@@ -7,6 +7,7 @@ Aplicación de escritorio de una calculadora básica desarrollada con JavaFX y M
 - Suma, resta, multiplicación y división.
 - Operaciones encadenadas de izquierda a derecha.
 - Números decimales, con un único separador por operando.
+- Formato anglosajón en pantalla: `.` como separador decimal y `,` como separador de miles.
 - Mensaje controlado ante una división por cero.
 - Retroceso, cambio de signo y limpieza del cálculo.
 - Atajos de teclado para números, operadores, decimal, Enter, Retroceso, Supr y Escape.
@@ -65,13 +66,21 @@ src/
 │   ├── java/com/calculator/
 │   │   ├── CalculatorApp.java        # Punto de entrada de JavaFX
 │   │   ├── CalculatorController.java # Eventos de la interfaz
-│   │   └── CalculatorModel.java      # Estado y operaciones de la calculadora
+│   │   ├── CalculatorModel.java      # Estado y flujo de la calculadora
+│   │   └── CalculatorService.java    # Reglas de negocio y cálculos matemáticos
 │   └── resources/
 │       ├── calculator.fxml           # Diseño de la interfaz
 │       └── calculator.css            # Estilos visuales
 └── test/java/com/calculator/
-    └── CalculatorModelTest.java      # Pruebas unitarias
+    ├── CalculatorModelTest.java      # Pruebas del estado y flujo
+    └── CalculatorServiceTest.java    # Pruebas de cálculos y validaciones
 ```
+
+La aplicación usa MVC: el FXML y CSS forman la vista, `CalculatorController` procesa los
+eventos de JavaFX y `CalculatorModel` conserva el estado de la operación. La lógica de
+negocio se concentra en `CalculatorService`, responsable de calcular, validar y formatear
+resultados. Esta separación deja una base preparada para escalar el proyecto con historial,
+memoria, operaciones científicas, persistencia u otra interfaz sin mezclar responsabilidades.
 
 ## Uso
 
