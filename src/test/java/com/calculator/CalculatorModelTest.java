@@ -103,6 +103,18 @@ class CalculatorModelTest {
         assertEquals("-3", calculator.getDisplay());
     }
 
+    @Test
+    void showsErrorWhenAResultOverflows() {
+        CalculatorModel calculator = new CalculatorModel();
+
+        enterNumber(calculator, "1" + "0".repeat(308));
+        calculator.selectOperator("*");
+        enterNumber(calculator, "2");
+        calculator.calculateResult();
+
+        assertEquals("Error: resultado fuera de rango", calculator.getDisplay());
+    }
+
     private String calculate(String firstNumber, String operator, String secondNumber) {
         CalculatorModel calculator = new CalculatorModel();
         enterNumber(calculator, firstNumber);

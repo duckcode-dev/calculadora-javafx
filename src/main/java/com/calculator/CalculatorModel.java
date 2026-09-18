@@ -106,22 +106,35 @@ public class CalculatorModel {
     }
 
     private Double calculate(double number2) {
+        double result;
+
         switch (operator) {
             case "+":
-                return number1 + number2;
+                result = number1 + number2;
+                break;
             case "-":
-                return number1 - number2;
+                result = number1 - number2;
+                break;
             case "*":
-                return number1 * number2;
+                result = number1 * number2;
+                break;
             case "/":
                 if (number2 == 0) {
                     showDivisionByZeroError();
                     return null;
                 }
-                return number1 / number2;
+                result = number1 / number2;
+                break;
             default:
                 return null;
         }
+
+        if (!Double.isFinite(result)) {
+            showOverflowError();
+            return null;
+        }
+
+        return result;
     }
 
     private String formatResult(double result) {
@@ -136,6 +149,15 @@ public class CalculatorModel {
 
     private void showDivisionByZeroError() {
         display = "Error: división por cero";
+        resetAfterError();
+    }
+
+    private void showOverflowError() {
+        display = "Error: resultado fuera de rango";
+        resetAfterError();
+    }
+
+    private void resetAfterError() {
         operator = "";
         number1 = 0;
         startNewNumber = true;

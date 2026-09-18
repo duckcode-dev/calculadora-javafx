@@ -55,7 +55,7 @@ En macOS o Linux:
 ./mvnw test
 ```
 
-Las pruebas cubren las operaciones básicas, cálculos encadenados, el manejo de división por cero, la limpieza de estado y el uso del separador decimal.
+Las pruebas cubren las operaciones básicas, cálculos encadenados, el manejo de errores, la limpieza de estado, el uso del separador decimal y la carga del FXML con su controlador.
 
 ## Estructura
 
