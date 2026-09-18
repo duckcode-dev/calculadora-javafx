@@ -16,6 +16,7 @@ public class CalculatorController {
     @FXML
     private void initialize() {
         updateDisplay();
+        display.positionCaret(display.getLength());
     }
 
     @FXML
@@ -116,5 +117,6 @@ public class CalculatorController {
 
     private void updateDisplay() {
         display.setText(calculator.getDisplay());
+        display.positionCaret(display.getLength());
     }
 }

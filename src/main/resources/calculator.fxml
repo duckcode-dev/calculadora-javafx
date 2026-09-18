@@ -22,7 +22,7 @@
         <RowConstraints minHeight="48" vgrow="ALWAYS"/>
         <RowConstraints minHeight="48" vgrow="ALWAYS"/>
     </rowConstraints>
-    <TextField fx:id="display" editable="false" maxWidth="Infinity" styleClass="display"
+    <TextField fx:id="display" editable="false" focusTraversable="false" maxWidth="Infinity" styleClass="display"
                GridPane.columnSpan="4" GridPane.hgrow="ALWAYS" />
     <Button text="+/-" onAction="#handleToggleSign" maxWidth="Infinity" maxHeight="Infinity" styleClass="operator-button" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
     <Button text="/" onAction="#handleOperator" maxWidth="Infinity" maxHeight="Infinity" styleClass="operator-button" GridPane.rowIndex="1" GridPane.columnIndex="1"/>

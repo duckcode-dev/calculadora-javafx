@@ -1,6 +1,7 @@
 package com.calculator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -42,6 +43,9 @@ class CalculatorFxmlTest {
 
             Parent root = new FXMLLoader(fxmlLocation).load();
             TextField display = findTextField(root);
+
+            assertFalse(display.isFocusTraversable());
+            assertEquals(display.getLength(), display.getCaretPosition());
 
             findButton(root, "2").fire();
             findButton(root, "+").fire();
