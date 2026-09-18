@@ -24,6 +24,7 @@ class CalculatorModelTest {
         assertEquals("2", calculate("5", "-", "3"));
         assertEquals("12", calculate("4", "*", "3"));
         assertEquals("2.5", calculate("5", "/", "2"));
+        assertEquals("0.3", calculate("0.1", "+", "0.2"));
     }
 
     @Test
@@ -107,7 +108,7 @@ class CalculatorModelTest {
     void showsErrorWhenAResultOverflows() {
         CalculatorModel calculator = new CalculatorModel();
 
-        enterNumber(calculator, "1" + "0".repeat(308));
+        enterNumber(calculator, "1" + "0".repeat(1_000));
         calculator.selectOperator("*");
         enterNumber(calculator, "2");
         calculator.calculateResult();

@@ -1,11 +1,14 @@
 package com.calculator;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 public class CalculatorModel {
+    private static final int MAX_RESULT_PRECISION = 1_000;
+
     private String display = "0";
     private String operator = "";
-    private double number1 = 0;
+    private BigDecimal number1 = BigDecimal.ZERO;
     private boolean startNewNumber = true;
     private boolean hasError = false;
 
@@ -62,9 +65,9 @@ public class CalculatorModel {
             return;
         }
 
-        double displayedNumber = Double.parseDouble(display);
+        BigDecimal displayedNumber = new BigDecimal(display);
         if (!operator.isEmpty() && !startNewNumber) {
-            Double result = calculate(displayedNumber);
+            BigDecimal result = calculate(displayedNumber);
             if (result == null) {
                 return;
             }
@@ -83,7 +86,7 @@ public class CalculatorModel {
             return;
         }
 
-        Double result = calculate(Double.parseDouble(display));
+        BigDecimal result = calculate(new BigDecimal(display));
         if (result == null) {
             return;
         }
@@ -96,7 +99,7 @@ public class CalculatorModel {
     public void clear() {
         display = "0";
         operator = "";
-        number1 = 0;
+        number1 = BigDecimal.ZERO;
         startNewNumber = true;
         hasError = false;
     }
@@ -105,31 +108,31 @@ public class CalculatorModel {
         return display;
     }
 
-    private Double calculate(double number2) {
-        double result;
+    private BigDecimal calculate(BigDecimal number2) {
+        BigDecimal result;
 
         switch (operator) {
             case "+":
-                result = number1 + number2;
+                result = number1.add(number2);
                 break;
             case "-":
-                result = number1 - number2;
+                result = number1.subtract(number2);
                 break;
             case "*":
-                result = number1 * number2;
+                result = number1.multiply(number2);
                 break;
             case "/":
-                if (number2 == 0) {
+                if (number2.compareTo(BigDecimal.ZERO) == 0) {
                     showDivisionByZeroError();
                     return null;
                 }
-                result = number1 / number2;
+                result = number1.divide(number2, MathContext.DECIMAL128);
                 break;
             default:
                 return null;
         }
 
-        if (!Double.isFinite(result)) {
+        if (result.precision() > MAX_RESULT_PRECISION) {
             showOverflowError();
             return null;
         }
@@ -137,14 +140,11 @@ public class CalculatorModel {
         return result;
     }
 
-    private String formatResult(double result) {
-        if (!Double.isFinite(result)) {
-            return String.valueOf(result);
-        }
-        if (result == 0) {
+    private String formatResult(BigDecimal result) {
+        if (result.compareTo(BigDecimal.ZERO) == 0) {
             return "0";
         }
-        return BigDecimal.valueOf(result).stripTrailingZeros().toPlainString();
+        return result.stripTrailingZeros().toPlainString();
     }
 
     private void showDivisionByZeroError() {
@@ -159,7 +159,7 @@ public class CalculatorModel {
 
     private void resetAfterError() {
         operator = "";
-        number1 = 0;
+        number1 = BigDecimal.ZERO;
         startNewNumber = true;
         hasError = true;
     }
