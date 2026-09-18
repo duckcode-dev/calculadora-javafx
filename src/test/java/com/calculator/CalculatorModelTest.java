@@ -68,6 +68,29 @@ class CalculatorModelTest {
         assertEquals("0.5", calculator.getDisplay());
     }
 
+    @Test
+    void deletesLastEnteredCharacter() {
+        CalculatorModel calculator = new CalculatorModel();
+
+        enterNumber(calculator, "123");
+        calculator.deleteLastCharacter();
+
+        assertEquals("12", calculator.getDisplay());
+    }
+
+    @Test
+    void togglesTheSignOfTheCurrentNumber() {
+        CalculatorModel calculator = new CalculatorModel();
+
+        enterNumber(calculator, "5");
+        calculator.toggleSign();
+        calculator.selectOperator("+");
+        enterNumber(calculator, "2");
+        calculator.calculateResult();
+
+        assertEquals("-3", calculator.getDisplay());
+    }
+
     private String calculate(String firstNumber, String operator, String secondNumber) {
         CalculatorModel calculator = new CalculatorModel();
         enterNumber(calculator, firstNumber);

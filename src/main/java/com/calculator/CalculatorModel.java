@@ -28,6 +28,35 @@ public class CalculatorModel {
         }
     }
 
+    public void deleteLastCharacter() {
+        if (hasError) {
+            clear();
+            return;
+        }
+        if (display.isEmpty()) {
+            return;
+        }
+
+        startNewNumber = false;
+        display = display.substring(0, display.length() - 1);
+        if (display.equals("-")) {
+            display = "";
+        }
+    }
+
+    public void toggleSign() {
+        if (hasError || display.isEmpty()) {
+            return;
+        }
+
+        startNewNumber = false;
+        if (display.startsWith("-")) {
+            display = display.substring(1);
+        } else {
+            display = "-" + display;
+        }
+    }
+
     public void selectOperator(String selectedOperator) {
         if (hasError || display.isEmpty()) {
             return;

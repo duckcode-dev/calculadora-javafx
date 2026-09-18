@@ -8,7 +8,8 @@ Aplicación de escritorio de una calculadora básica desarrollada con JavaFX y M
 - Operaciones encadenadas de izquierda a derecha.
 - Números decimales, con un único separador por operando.
 - Mensaje controlado ante una división por cero.
-- Botón para limpiar el cálculo.
+- Retroceso, cambio de signo y limpieza del cálculo.
+- Atajos de teclado para números, operadores, decimal, Enter, Retroceso, Supr y Escape.
 - Interfaz adaptable con estilos CSS.
 
 ## Requisitos
@@ -74,4 +75,4 @@ src/
 
 ## Uso
 
-Selecciona los dígitos y las operaciones con los botones. El botón `=` muestra el resultado y `C` reinicia el cálculo. Los resultados enteros se muestran sin decimales innecesarios; por ejemplo, `2 + 2` muestra `4` y `5 / 2` muestra `2.5`.
+Selecciona los dígitos y las operaciones con los botones o el teclado. `Enter` o `=` muestran el resultado; `⌫` borra el último carácter; `+/-` invierte el signo; y `C`, `Supr` o `Escape` reinician el cálculo. Los resultados enteros se muestran sin decimales innecesarios; por ejemplo, `2 + 2` muestra `4` y `5 / 2` muestra `2.5`.
