@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -20,9 +21,14 @@ public class CalculatorApp extends Application {
                 getClass().getResource("/calculator.css"),
                 "No se encontró el archivo calculator.css"
         );
+        URL iconLocation = Objects.requireNonNull(
+                getClass().getResource("/icons/app-icon.png"),
+                "No se encontró el ícono de la aplicación"
+        );
         FXMLLoader loader = new FXMLLoader(fxmlLocation);
         Parent root = loader.load();
         primaryStage.setTitle("Calculadora JavaFX");
+        primaryStage.getIcons().add(new Image(iconLocation.toExternalForm()));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(stylesheetLocation.toExternalForm());
         primaryStage.setScene(scene);
